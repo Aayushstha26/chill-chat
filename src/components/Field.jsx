@@ -1,7 +1,7 @@
 export default function Field({ label, error, children }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-[10.5px] font-medium text-[#555] uppercase tracking-widest">
+      <label className="text-[10.5px] font-medium text-[#817c7c] uppercase tracking-widest">
         {label}
       </label>
       {children}
