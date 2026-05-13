@@ -258,6 +258,17 @@ export default function Auth() {
               <input type="email" placeholder="you@example.com" autoComplete="email"
                 {...register("email")} className={inputCls(!!errors.email)} />
             </Field>
+            {mode === 'signup' && (
+            <Field label="Phone number" error={errors.phone?.message}>
+                <input
+                  type="number"
+                  placeholder="Enter your phone number"
+                  autoComplete="phone"
+                  {...register('phone')}
+                  className={inputCls(!!errors.phone)}
+                />
+              </Field>
+            )}
 
             <Field label="Password" error={errors.password?.message}>
               <div className="relative">

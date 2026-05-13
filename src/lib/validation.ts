@@ -10,6 +10,11 @@ const passwordSchema = z
   .regex(/[0-9]/, "Password must contain at least one number")
   .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character");
 
+const phoneSchema = z
+  .string()
+  .min(1, "Phone number is required")
+  .regex(/^[0-9]{10}$/, "Phone number must be 10 digits");
+
 // LOGIN
 export const loginSchema = z.object({
   email: z
@@ -41,6 +46,7 @@ export const signupSchema = z
       .max(255, "Email is too long"),
 
     password: passwordSchema,
+    phone: phoneSchema,
 
     confirmPassword: z.string().min(1, "Confirm password is required"),
   })
@@ -48,4 +54,4 @@ export const signupSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
-
+
