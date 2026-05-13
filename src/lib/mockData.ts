@@ -1,0 +1,166 @@
+import { Conversation } from "../types/chat";
+
+export const CURRENT_USER_ID = "me";
+
+export const mockConversations: Conversation[] = [
+  {
+    id: "1",
+    participant: {
+      id: "sr",
+      name: "Sarah R.",
+      initials: "SR",
+      status: "online",
+    },
+    lastMessage: "Let's move the whole team here 😍",
+    lastMessageTime: "9:45 AM",
+    unreadCount: 0,
+    isPinned: true,
+    messages: [
+      {
+        id: "m1",
+        content: "Hey, is ChillChat live yet?",
+        senderId: "sr",
+        timestamp: "9:41 AM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m2",
+        content: "Just shipped it. Check it out 🎉",
+        senderId: CURRENT_USER_ID,
+        timestamp: "9:42 AM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m3",
+        content: "The UI looks clean. Love the dark theme!",
+        senderId: "sr",
+        timestamp: "9:43 AM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m4",
+        content: "Thanks! File sharing is in too.",
+        senderId: CURRENT_USER_ID,
+        timestamp: "9:44 AM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m5",
+        content: "Let's move the whole team here 😍",
+        senderId: "sr",
+        timestamp: "9:45 AM",
+        type: "text",
+        read: true,
+      },
+    ],
+  },
+  {
+    id: "2",
+    participant: {
+      id: "mk",
+      name: "Marcus K.",
+      initials: "MK",
+      status: "away",
+    },
+    lastMessage: "Can you review the PR when you get a chance?",
+    lastMessageTime: "Yesterday",
+    unreadCount: 2,
+    messages: [
+      {
+        id: "m6",
+        content: "Hey! Working on the new feature branch.",
+        senderId: "mk",
+        timestamp: "Yesterday, 3:10 PM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m7",
+        content: "Nice, how's it going?",
+        senderId: CURRENT_USER_ID,
+        timestamp: "Yesterday, 3:12 PM",
+        type: "text",
+        read: true,
+      },
+      {
+        id: "m8",
+        content: "Can you review the PR when you get a chance?",
+        senderId: "mk",
+        timestamp: "Yesterday, 5:30 PM",
+        type: "text",
+        read: false,
+      },
+    ],
+  },
+  {
+    id: "3",
+    participant: {
+      id: "jl",
+      name: "Jamie L.",
+      initials: "JL",
+      status: "offline",
+      lastSeen: "2h ago",
+    },
+    lastMessage: "Design assets are in the shared folder.",
+    lastMessageTime: "Mon",
+    unreadCount: 0,
+    messages: [
+      {
+        id: "m9",
+        content: "Design assets are in the shared folder.",
+        senderId: "jl",
+        timestamp: "Mon, 11:00 AM",
+        type: "text",
+        read: true,
+      },
+    ],
+  },
+  {
+    id: "4",
+    participant: {
+      id: "np",
+      name: "Nina P.",
+      initials: "NP",
+      status: "busy",
+    },
+    lastMessage: "Standup in 5 mins!",
+    lastMessageTime: "Mon",
+    unreadCount: 1,
+    messages: [
+      {
+        id: "m10",
+        content: "Standup in 5 mins!",
+        senderId: "np",
+        timestamp: "Mon, 9:55 AM",
+        type: "text",
+        read: false,
+      },
+    ],
+  },
+  {
+    id: "5",
+    participant: {
+      id: "td",
+      name: "Tom D.",
+      initials: "TD",
+      status: "online",
+    },
+    lastMessage: "Shipped the hotfix 🔥",
+    lastMessageTime: "Sun",
+    unreadCount: 0,
+    messages: [
+      {
+        id: "m11",
+        content: "Shipped the hotfix 🔥",
+        senderId: "td",
+        timestamp: "Sun, 7:30 PM",
+        type: "text",
+        read: true,
+      },
+    ],
+  },
+];
