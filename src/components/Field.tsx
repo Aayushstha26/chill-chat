@@ -1,4 +1,4 @@
-export default function Field({ label, error, children }) {
+export default function Field({ label, error, children }: { label: string, error?: any, children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-[10.5px] font-medium text-[#817c7c] uppercase tracking-widest">

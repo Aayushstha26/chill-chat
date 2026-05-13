@@ -17,13 +17,13 @@ export default function Auth() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<any>({
     resolver: zodResolver(mode === "login" ? loginSchema : signupSchema),
     mode: "onTouched",
   });
 
-  const switchMode = (m) => { setMode(m); reset(); };
-  const onSubmit   = (data) => console.log(data);
+  const switchMode = (m: string) => { setMode(m); reset(); };
+  const onSubmit   = (data: any) => console.log(data);
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-[#0a0a0a]">
@@ -335,7 +335,7 @@ export default function Auth() {
   );
 }
 
-const inputCls = (hasError) =>
+const inputCls = (hasError: boolean) =>
   `w-full px-3.5 py-[10px] bg-[#141414] border rounded-[9px] text-[14px] text-[#e0e0e0] placeholder-[#333] outline-none transition-all
   ${hasError
     ? "border-red-500/60 focus:border-red-500"
