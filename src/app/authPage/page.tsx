@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import GoogleIcon from "@/components/googleIcon";
 import Field from "@/components/Field";
 import { Eye, EyeOff } from "@/components/eye/eye";
+import { registerAPI ,loginAPI } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function Auth() {
   const [mode, setMode] = useState("login");
@@ -23,7 +25,27 @@ export default function Auth() {
   });
 
   const switchMode = (m: string) => { setMode(m); reset(); };
-  const onSubmit   = (data: any) => console.log(data);
+  const onSubmit   = async(data: any) => {
+    if (mode === 'signup') {
+      console.log(data);
+      const res = await registerAPI(data);
+      if (res?.success) {
+        toast.success(res.message);
+        reset();
+        switchMode('login');
+      } else {
+        toast.error(res?.message);
+      }
+    } else {
+      const res = await loginAPI(data);
+      if (res?.success) {
+        toast.success(res.message);
+        reset();
+      } else {
+        toast.error(res?.message);
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-[#0a0a0a]">
@@ -248,9 +270,9 @@ export default function Auth() {
             className="flex flex-col gap-4" style={{ animation: "fadeUp 0.25s ease both" }}>
 
             {mode === "signup" && (
-              <Field label="Full name" error={errors.fullname?.message}>
+              <Field label="Full name" error={errors.fullName?.message}>
                 <input type="text" placeholder="Alex Johnson" autoComplete="name"
-                  {...register("fullname")} className={inputCls(!!errors.fullname)} />
+                  {...register("fullName")} className={inputCls(!!errors.fullName)} />
               </Field>
             )}
 
@@ -261,7 +283,7 @@ export default function Auth() {
             {mode === 'signup' && (
             <Field label="Phone number" error={errors.phone?.message}>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Enter your phone number"
                   autoComplete="phone"
                   {...register('phone')}
