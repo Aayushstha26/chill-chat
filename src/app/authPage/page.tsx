@@ -9,8 +9,10 @@ import Field from "@/components/Field";
 import { Eye, EyeOff } from "@/components/eye/eye";
 import { registerAPI ,loginAPI } from "@/lib/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
+  const router = useRouter();
   const [mode, setMode] = useState("login");
   const [showPass, setShowPass] = useState(false);
 
@@ -41,6 +43,7 @@ export default function Auth() {
       if (res?.success) {
         toast.success(res.message);
         reset();
+        router.push("/chat");
       } else {
         toast.error(res?.message);
       }
