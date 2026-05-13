@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, KeyboardEvent } from "react";
-import { Paperclip, Smile, Send } from "lucide-react";
+import { Paperclip, Smile, Send, Mic } from "lucide-react";
 
 interface MessageInputProps {
   onSend: (content: string) => void;
@@ -10,6 +10,7 @@ interface MessageInputProps {
 
 export default function MessageInput({ onSend, disabled }: MessageInputProps) {
   const [value, setValue] = useState("");
+  const [focused, setFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
@@ -39,14 +40,23 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
   const canSend = value.trim().length > 0 && !disabled;
 
   return (
-    <div className="px-4 py-4">
-      <div className="flex items-end gap-2 bg-zinc-800/70 border border-zinc-700/60 rounded-2xl px-3 py-2 focus-within:border-zinc-500 transition-colors">
+    <div className="px-4 py-3">
+      <div
+        className={`
+          flex items-end gap-1 rounded-2xl px-2 py-1.5 transition-all duration-200
+          ${
+            focused
+              ? "bg-white/[0.06] border border-white/[0.12] shadow-[0_0_0_3px_rgba(255,255,255,0.03),0_8px_32px_rgba(0,0,0,0.4)]"
+              : "bg-white/[0.03] border border-white/[0.06] shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
+          }
+        `}
+      >
         {/* Attach */}
         <button
-          className="p-1.5 text-zinc-500 hover:text-zinc-300 transition-colors flex-shrink-0 mb-0.5"
           title="Attach file"
+          className="p-2 rounded-lg text-zinc-600 hover:text-zinc-400 transition-colors flex-shrink-0"
         >
-          <Paperclip size={18} strokeWidth={1.8} />
+          <Paperclip size={17} strokeWidth={1.8} />
         </button>
 
         {/* Textarea */}
@@ -57,39 +67,45 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           onInput={handleInput}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           placeholder="Message..."
           disabled={disabled}
-          className="flex-1 bg-transparent text-zinc-200 placeholder-zinc-600 text-sm resize-none outline-none leading-relaxed py-1.5 max-h-[120px] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-700 disabled:opacity-40"
+          className="flex-1 bg-transparent border-none outline-none resize-none text-zinc-200 placeholder-zinc-700 text-[13.5px] leading-relaxed py-2 px-1 max-h-[120px] font-sans disabled:opacity-40"
         />
 
         {/* Emoji */}
         <button
-          className="p-1.5 text-zinc-500 hover:text-zinc-300 transition-colors flex-shrink-0 mb-0.5"
           title="Emoji"
+          className="p-2 rounded-lg text-zinc-600 hover:text-zinc-400 transition-colors flex-shrink-0"
         >
-          <Smile size={18} strokeWidth={1.8} />
+          <Smile size={17} strokeWidth={1.8} />
         </button>
+
+        {/* Mic (shown when no input) */}
+        {!canSend && (
+          <button
+            title="Voice message"
+            className="p-2 rounded-lg text-zinc-600 hover:text-zinc-400 transition-colors flex-shrink-0"
+          >
+            <Mic size={17} strokeWidth={1.8} />
+          </button>
+        )}
 
         {/* Send */}
-        <button
-          onClick={handleSend}
-          disabled={!canSend}
-          className={`p-2 rounded-xl flex-shrink-0 mb-0.5 transition-all duration-150
-            ${
-              canSend
-                ? "bg-white text-black hover:bg-zinc-100 scale-100"
-                : "bg-zinc-700 text-zinc-500 cursor-not-allowed scale-95 opacity-50"
-            }
-          `}
-          title="Send (Enter)"
-        >
-          <Send size={15} strokeWidth={2} />
-        </button>
+        {canSend && (
+          <button
+            onClick={handleSend}
+            title="Send (Enter)"
+            className="w-[34px] h-[34px] rounded-xl flex-shrink-0 bg-gradient-to-br from-zinc-200 to-zinc-400 text-zinc-900 flex items-center justify-center hover:scale-105 hover:shadow-[0_4px_12px_rgba(228,228,231,0.25)] active:scale-95 transition-all duration-150 shadow-[0_2px_8px_rgba(228,228,231,0.15)]"
+          >
+            <Send size={14} strokeWidth={2.5} />
+          </button>
+        )}
       </div>
 
-      <p className="text-center text-[10px] text-zinc-700 mt-2">
-        Press <kbd className="text-zinc-600">Enter</kbd> to send ·{" "}
-        <kbd className="text-zinc-600">Shift+Enter</kbd> for new line
+      <p className="text-center text-[10px] text-zinc-800 mt-1.5">
+        Enter to send · Shift+Enter for new line
       </p>
     </div>
   );

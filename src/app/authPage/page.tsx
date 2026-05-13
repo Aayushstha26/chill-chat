@@ -43,7 +43,7 @@ export default function Auth() {
       if (res?.success) {
         toast.success(res.message);
         reset();
-        router.push("/chat");
+        router.push("Dashboard/chat");
       } else {
         toast.error(res?.message);
       }
