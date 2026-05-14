@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import GoogleIcon from "@/components/googleIcon";
 import Field from "@/components/Field";
 import { Eye, EyeOff } from "@/components/eye/eye";
-import { registerAPI ,loginAPI } from "@/lib/api";
+import { registerAPI, loginAPI } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -27,7 +27,7 @@ export default function Auth() {
   });
 
   const switchMode = (m: string) => { setMode(m); reset(); };
-  const onSubmit   = async(data: any) => {
+  const onSubmit = async (data: any) => {
     if (mode === 'signup') {
       console.log(data);
       const res = await registerAPI(data);
@@ -68,22 +68,20 @@ export default function Auth() {
 
         <div className="flex-1 flex flex-col justify-center gap-3 py-8 z-10">
           {[
-            { from: "SR", text: "Hey, is ChillChat live yet?",            time: "9:41 AM", me: false },
-            { from: "ME", text: "Just shipped it. Check it out 🚀",        time: "9:42 AM", me: true  },
+            { from: "SR", text: "Hey, is ChillChat live yet?", time: "9:41 AM", me: false },
+            { from: "ME", text: "Just shipped it. Check it out 🚀", time: "9:42 AM", me: true },
             { from: "SR", text: "The UI looks clean. Love the dark theme!", time: "9:43 AM", me: false },
-            { from: "ME", text: "Thanks! File sharing is in too.",          time: "9:44 AM", me: true  },
-            { from: "SR", text: "Let's move the whole team here 😄",        time: "9:45 AM", me: false },
+            { from: "ME", text: "Thanks! File sharing is in too.", time: "9:44 AM", me: true },
+            { from: "SR", text: "Let's move the whole team here 😄", time: "9:45 AM", me: false },
           ].map((msg, i) => (
             <div key={i} className={`flex gap-2 items-end ${msg.me ? "flex-row-reverse" : ""}`}
               style={{ animation: `floatIn 0.5s ease both ${0.1 + i * 0.15}s` }}>
-              <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-medium ${
-                msg.me ? "bg-[#d0d0d0] text-[#111]" : "bg-[#1e1e1e] text-[#888] border border-[#2e2e2e]"}`}>
+              <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-medium ${msg.me ? "bg-[#d0d0d0] text-[#111]" : "bg-[#1e1e1e] text-[#888] border border-[#2e2e2e]"}`}>
                 {msg.from}
               </div>
               <div className={`flex flex-col ${msg.me ? "items-end" : "items-start"}`}>
-                <div className={`max-w-[75%] px-3 py-2 rounded-2xl text-[12.5px] leading-relaxed ${
-                  msg.me ? "bg-[#d0d0d0] text-[#111] rounded-br-[3px]"
-                         : "bg-[#1c1c1c] text-[#aaa] border border-[#2a2a2a] rounded-bl-[3px]"}`}>
+                <div className={`max-w-[75%] px-3 py-2 rounded-2xl text-[12.5px] leading-relaxed ${msg.me ? "bg-[#d0d0d0] text-[#111] rounded-br-[3px]"
+                  : "bg-[#1c1c1c] text-[#aaa] border border-[#2a2a2a] rounded-bl-[3px]"}`}>
                   {msg.text}
                 </div>
                 <span className="text-[9px] text-[#3a3a3a] mt-1 px-1">{msg.time}</span>
@@ -123,41 +121,41 @@ export default function Auth() {
               {/* ── Glow filters ── */}
               <filter id="glow-xs" x="-40%" y="-40%" width="180%" height="180%">
                 <feGaussianBlur stdDeviation="2.5" result="b" />
-                <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                <feMerge><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
               </filter>
 
               <filter id="glow-md" x="-80%" y="-80%" width="260%" height="260%">
                 <feGaussianBlur stdDeviation="6" result="b" />
                 <feMerge>
-                  <feMergeNode in="b"/><feMergeNode in="b"/>
-                  <feMergeNode in="b"/><feMergeNode in="SourceGraphic"/>
+                  <feMergeNode in="b" /><feMergeNode in="b" />
+                  <feMergeNode in="b" /><feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
 
               <filter id="glow-xl" x="-150%" y="-150%" width="400%" height="400%">
                 <feGaussianBlur stdDeviation="14" result="b" />
                 <feMerge>
-                  <feMergeNode in="b"/><feMergeNode in="b"/>
-                  <feMergeNode in="b"/><feMergeNode in="b"/>
-                  <feMergeNode in="SourceGraphic"/>
+                  <feMergeNode in="b" /><feMergeNode in="b" />
+                  <feMergeNode in="b" /><feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
 
               {/* ── Grid pattern ── */}
               <pattern id="grid" x="0" y="0" width="44" height="44" patternUnits="userSpaceOnUse">
-                <line x1="44" y1="0" x2="0"  y2="0"  stroke="rgba(210,210,210,0.13)" strokeWidth="0.7"/>
-                <line x1="0"  y1="0" x2="0"  y2="44" stroke="rgba(210,210,210,0.13)" strokeWidth="0.7"/>
+                <line x1="44" y1="0" x2="0" y2="0" stroke="rgba(210,210,210,0.13)" strokeWidth="0.7" />
+                <line x1="0" y1="0" x2="0" y2="44" stroke="rgba(210,210,210,0.13)" strokeWidth="0.7" />
               </pattern>
 
               {/* ── Diagonal pattern ── */}
               <pattern id="diag" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <line x1="0" y1="40" x2="40" y2="0" stroke="rgba(210,210,210,0.055)" strokeWidth="0.7"/>
+                <line x1="0" y1="40" x2="40" y2="0" stroke="rgba(210,210,210,0.055)" strokeWidth="0.7" />
               </pattern>
 
               {/* Vignette — softened so pattern stays visible */}
               <radialGradient id="vig" cx="50%" cy="50%" r="65%">
-                <stop offset="0%"   stopColor="transparent"/>
-                <stop offset="100%" stopColor="rgba(10,10,10,0.72)"/>
+                <stop offset="0%" stopColor="transparent" />
+                <stop offset="100%" stopColor="rgba(10,10,10,0.72)" />
               </radialGradient>
             </defs>
 
@@ -168,81 +166,81 @@ export default function Auth() {
             {/* ════════════ TOP-RIGHT RINGS ════════════ */}
             {/* Outer faint halos */}
             <g filter="url(#glow-xl)">
-              <circle cx="93%" cy="6%" r="155" fill="none" stroke="rgba(200,200,200,0.18)" strokeWidth="1"/>
-              <circle cx="93%" cy="6%" r="112" fill="none" stroke="rgba(210,210,210,0.25)" strokeWidth="1.2"/>
-              <circle cx="93%" cy="6%" r="72"  fill="none" stroke="rgba(218,218,218,0.35)" strokeWidth="1.5"/>
-              <circle cx="93%" cy="6%" r="38"  fill="none" stroke="rgba(228,228,228,0.45)" strokeWidth="1.8"/>
-              <circle cx="93%" cy="6%" r="14"  fill="none" stroke="rgba(238,238,238,0.6)"  strokeWidth="2"/>
+              <circle cx="93%" cy="6%" r="155" fill="none" stroke="rgba(200,200,200,0.18)" strokeWidth="1" />
+              <circle cx="93%" cy="6%" r="112" fill="none" stroke="rgba(210,210,210,0.25)" strokeWidth="1.2" />
+              <circle cx="93%" cy="6%" r="72" fill="none" stroke="rgba(218,218,218,0.35)" strokeWidth="1.5" />
+              <circle cx="93%" cy="6%" r="38" fill="none" stroke="rgba(228,228,228,0.45)" strokeWidth="1.8" />
+              <circle cx="93%" cy="6%" r="14" fill="none" stroke="rgba(238,238,238,0.6)" strokeWidth="2" />
             </g>
             {/* Bright inner rings (no extra filter — sharp + crisp) */}
-            <circle cx="93%" cy="6%" r="72"  fill="none" stroke="rgba(215,215,215,0.28)" strokeWidth="1"/>
-            <circle cx="93%" cy="6%" r="38"  fill="none" stroke="rgba(225,225,225,0.38)" strokeWidth="1"/>
-            <circle cx="93%" cy="6%" r="14"  fill="none" stroke="rgba(235,235,235,0.5)"  strokeWidth="1.2"/>
+            <circle cx="93%" cy="6%" r="72" fill="none" stroke="rgba(215,215,215,0.28)" strokeWidth="1" />
+            <circle cx="93%" cy="6%" r="38" fill="none" stroke="rgba(225,225,225,0.38)" strokeWidth="1" />
+            <circle cx="93%" cy="6%" r="14" fill="none" stroke="rgba(235,235,235,0.5)" strokeWidth="1.2" />
 
             {/* Crosshair on top-right ring */}
             <g filter="url(#glow-md)">
-              <line x1="93%" y1="-5%"  x2="93%" y2="20%"  stroke="rgba(210,210,210,0.7)" strokeWidth="0.8"/>
-              <line x1="76%" y1="6%"   x2="110%" y2="6%"  stroke="rgba(210,210,210,0.7)" strokeWidth="0.8"/>
-              <line x1="82%" y1="-4%"  x2="108%" y2="18%" stroke="rgba(210,210,210,0.3)" strokeWidth="0.6"/>
-              <line x1="108%"y1="-4%"  x2="82%"  y2="18%" stroke="rgba(210,210,210,0.3)" strokeWidth="0.6"/>
+              <line x1="93%" y1="-5%" x2="93%" y2="20%" stroke="rgba(210,210,210,0.7)" strokeWidth="0.8" />
+              <line x1="76%" y1="6%" x2="110%" y2="6%" stroke="rgba(210,210,210,0.7)" strokeWidth="0.8" />
+              <line x1="82%" y1="-4%" x2="108%" y2="18%" stroke="rgba(210,210,210,0.3)" strokeWidth="0.6" />
+              <line x1="108%" y1="-4%" x2="82%" y2="18%" stroke="rgba(210,210,210,0.3)" strokeWidth="0.6" />
             </g>
             {/* Sharp crosshair lines on top */}
-            <line x1="93%" y1="-5%"  x2="93%" y2="20%"  stroke="rgba(220,220,220,0.45)" strokeWidth="0.6"/>
-            <line x1="76%" y1="6%"   x2="110%" y2="6%"  stroke="rgba(220,220,220,0.45)" strokeWidth="0.6"/>
+            <line x1="93%" y1="-5%" x2="93%" y2="20%" stroke="rgba(220,220,220,0.45)" strokeWidth="0.6" />
+            <line x1="76%" y1="6%" x2="110%" y2="6%" stroke="rgba(220,220,220,0.45)" strokeWidth="0.6" />
 
             {/* ════════════ BOTTOM-LEFT RINGS ════════════ */}
             <g filter="url(#glow-xl)">
-              <circle cx="7%" cy="94%" r="125" fill="none" stroke="rgba(200,200,200,0.14)" strokeWidth="1"/>
-              <circle cx="7%" cy="94%" r="88"  fill="none" stroke="rgba(210,210,210,0.21)" strokeWidth="1.2"/>
-              <circle cx="7%" cy="94%" r="54"  fill="none" stroke="rgba(218,218,218,0.3)"  strokeWidth="1.5"/>
-              <circle cx="7%" cy="94%" r="26"  fill="none" stroke="rgba(228,228,228,0.42)" strokeWidth="1.8"/>
-              <circle cx="7%" cy="94%" r="10"  fill="none" stroke="rgba(238,238,238,0.55)" strokeWidth="2"/>
+              <circle cx="7%" cy="94%" r="125" fill="none" stroke="rgba(200,200,200,0.14)" strokeWidth="1" />
+              <circle cx="7%" cy="94%" r="88" fill="none" stroke="rgba(210,210,210,0.21)" strokeWidth="1.2" />
+              <circle cx="7%" cy="94%" r="54" fill="none" stroke="rgba(218,218,218,0.3)" strokeWidth="1.5" />
+              <circle cx="7%" cy="94%" r="26" fill="none" stroke="rgba(228,228,228,0.42)" strokeWidth="1.8" />
+              <circle cx="7%" cy="94%" r="10" fill="none" stroke="rgba(238,238,238,0.55)" strokeWidth="2" />
             </g>
-            <circle cx="7%" cy="94%" r="54"  fill="none" stroke="rgba(215,215,215,0.22)" strokeWidth="1"/>
-            <circle cx="7%" cy="94%" r="26"  fill="none" stroke="rgba(225,225,225,0.32)" strokeWidth="1"/>
+            <circle cx="7%" cy="94%" r="54" fill="none" stroke="rgba(215,215,215,0.22)" strokeWidth="1" />
+            <circle cx="7%" cy="94%" r="26" fill="none" stroke="rgba(225,225,225,0.32)" strokeWidth="1" />
 
             {/* Crosshair on bottom-left ring */}
             <g filter="url(#glow-md)">
-              <line x1="7%"  y1="80%"  x2="7%"  y2="110%" stroke="rgba(210,210,210,0.65)" strokeWidth="0.8"/>
-              <line x1="-7%" y1="94%"  x2="22%" y2="94%"  stroke="rgba(210,210,210,0.65)" strokeWidth="0.8"/>
+              <line x1="7%" y1="80%" x2="7%" y2="110%" stroke="rgba(210,210,210,0.65)" strokeWidth="0.8" />
+              <line x1="-7%" y1="94%" x2="22%" y2="94%" stroke="rgba(210,210,210,0.65)" strokeWidth="0.8" />
             </g>
-            <line x1="7%"  y1="80%"  x2="7%"  y2="110%" stroke="rgba(220,220,220,0.4)"  strokeWidth="0.6"/>
-            <line x1="-7%" y1="94%"  x2="22%" y2="94%"  stroke="rgba(220,220,220,0.4)"  strokeWidth="0.6"/>
+            <line x1="7%" y1="80%" x2="7%" y2="110%" stroke="rgba(220,220,220,0.4)" strokeWidth="0.6" />
+            <line x1="-7%" y1="94%" x2="22%" y2="94%" stroke="rgba(220,220,220,0.4)" strokeWidth="0.6" />
 
             {/* ════════════ CORNER BRACKETS ════════════ */}
             <g filter="url(#glow-md)">
               {/* top-left */}
               <path d="M 32 68 L 32 32 L 68 32"
-                fill="none" stroke="rgba(195,195,195,0.75)" strokeWidth="1.4" strokeLinecap="round"/>
+                fill="none" stroke="rgba(195,195,195,0.75)" strokeWidth="1.4" strokeLinecap="round" />
             </g>
             <path d="M 32 68 L 32 32 L 68 32"
-              fill="none" stroke="rgba(210,210,210,0.45)" strokeWidth="1" strokeLinecap="round"/>
+              fill="none" stroke="rgba(210,210,210,0.45)" strokeWidth="1" strokeLinecap="round" />
 
             {/* ════════════ DIAGONAL ACCENT LINES ════════════ */}
             <g filter="url(#glow-md)">
-              <line x1="0"    y1="32%" x2="18%" y2="18%"  stroke="rgba(205,205,205,0.6)" strokeWidth="0.8"/>
-              <line x1="100%" y1="68%" x2="82%" y2="82%"  stroke="rgba(205,205,205,0.6)" strokeWidth="0.8"/>
+              <line x1="0" y1="32%" x2="18%" y2="18%" stroke="rgba(205,205,205,0.6)" strokeWidth="0.8" />
+              <line x1="100%" y1="68%" x2="82%" y2="82%" stroke="rgba(205,205,205,0.6)" strokeWidth="0.8" />
             </g>
-            <line x1="0"    y1="32%" x2="18%" y2="18%"  stroke="rgba(215,215,215,0.3)" strokeWidth="0.6"/>
-            <line x1="100%" y1="68%" x2="82%" y2="82%"  stroke="rgba(215,215,215,0.3)" strokeWidth="0.6"/>
+            <line x1="0" y1="32%" x2="18%" y2="18%" stroke="rgba(215,215,215,0.3)" strokeWidth="0.6" />
+            <line x1="100%" y1="68%" x2="82%" y2="82%" stroke="rgba(215,215,215,0.3)" strokeWidth="0.6" />
 
             {/* Vignette — on top of everything */}
-            <rect width="100%" height="100%" fill="url(#vig)"/>
+            <rect width="100%" height="100%" fill="url(#vig)" />
           </svg>
 
           {/* Bottom-right bracket — separate SVG */}
           <svg className="absolute bottom-0 right-0 w-28 h-28" viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <filter id="glow-br" x="-80%" y="-80%" width="260%" height="260%">
-                <feGaussianBlur stdDeviation="5.5" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                <feGaussianBlur stdDeviation="5.5" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
               </filter>
             </defs>
             <path d="M 44 80 L 80 80 L 80 44"
               fill="none" stroke="rgba(195,195,195,0.75)" strokeWidth="1.4"
-              strokeLinecap="round" filter="url(#glow-br)"/>
+              strokeLinecap="round" filter="url(#glow-br)" />
             <path d="M 44 80 L 80 80 L 80 44"
-              fill="none" stroke="rgba(210,210,210,0.42)" strokeWidth="1" strokeLinecap="round"/>
+              fill="none" stroke="rgba(210,210,210,0.42)" strokeWidth="1" strokeLinecap="round" />
           </svg>
 
         </div>
@@ -262,8 +260,7 @@ export default function Auth() {
           <div className="flex bg-[#141414] border border-[#222] rounded-xl p-1 mb-8">
             {["login", "signup"].map((m) => (
               <button key={m} type="button" onClick={() => switchMode(m)}
-                className={`flex-1 py-2 rounded-[9px] text-[13.5px] font-medium transition-all duration-200 cursor-pointer border-none ${
-                  mode === m ? "bg-[#e0e0e0] text-[#0a0a0a]" : "bg-transparent text-[#555] hover:text-[#aaa]"}`}>
+                className={`flex-1 py-2 rounded-[9px] text-[13.5px] font-medium transition-all duration-200 cursor-pointer border-none ${mode === m ? "bg-[#e0e0e0] text-[#0a0a0a]" : "bg-transparent text-[#555] hover:text-[#aaa]"}`}>
                 {m === "login" ? "Sign in" : "Register"}
               </button>
             ))}
@@ -284,7 +281,7 @@ export default function Auth() {
                 {...register("email")} className={inputCls(!!errors.email)} />
             </Field>
             {mode === 'signup' && (
-            <Field label="Phone number" error={errors.phone?.message}>
+              <Field label="Phone number" error={errors.phone?.message}>
                 <input
                   type="text"
                   placeholder="Enter your phone number"

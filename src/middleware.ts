@@ -2,9 +2,18 @@ import { verifyJwt } from "./lib/jwt";
 import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     const token = req.cookies.get("token")?.value || req.headers.get("Authorization")?.replace("Bearer ", "");
+    const isAuthPage = req.nextUrl.pathname === "/authPage";
+
     if (!token) {
-        console.log("No token found. Please login first")
-        return NextResponse.redirect(new URL("/authPage", req.url));
+        if (!isAuthPage) {
+            console.log("No token found. Please login first")
+            return NextResponse.redirect(new URL("/authPage", req.url));
+        }
+        return NextResponse.next();
+    }
+
+    if (isAuthPage && token) {
+        return NextResponse.redirect(new URL("/Dashboard/chat", req.url));
     }
 
     try {
@@ -26,5 +35,5 @@ export async function middleware(req: NextRequest) {
     }
 }
 export const config = {
-    matcher: ['/Dashboard/:path*']
+    matcher: ['/Dashboard/:path*', '/authPage']
 }
