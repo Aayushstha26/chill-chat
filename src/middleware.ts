@@ -28,6 +28,7 @@ export async function middleware(req: NextRequest) {
         const response = NextResponse.next();
         console.log("user id:", isVerified)
         response.headers.set("x-user-id", isVerified.id.toString());
+        response.headers.set("x-user-name", isVerified.fullName);
         return response;
     } catch (error) {
         console.error("Middleware error:", error);

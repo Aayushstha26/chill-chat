@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, SquarePen, Settings, LogOut } from "lucide-react";
 import { Conversation } from "@/types/chat";
 import ConversationItem from "./ConversationItem";
+import Cookies from "js-cookie";
 
 interface SidebarProps {
   conversations: Conversation[];
@@ -17,7 +18,8 @@ export default function Sidebar({
   onSelectConversation,
 }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const name = Cookies.get("name")?.toString();
+  console.log(name);
   const filtered = conversations.filter((c) =>
     c.participant.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -99,7 +101,7 @@ export default function Sidebar({
           </div>
           <div>
             <p className="text-[13px] font-semibold text-zinc-300 leading-none mb-1">
-              You
+              {name}
             </p>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />

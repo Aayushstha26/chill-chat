@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { generateJwt } from "@/lib/jwt";
 
 export async function POST(req: NextRequest) {
-    
+
     try {
         const body = await req.json();
         const { email, password } = body;
@@ -27,6 +27,13 @@ export async function POST(req: NextRequest) {
         const res = NextResponse.json({ success: true, message: "User logged in successfully", user }, { status: 200 });
         res.cookies.set("token", token, {
             httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7,
+        });
+        res.cookies.set("name", user.fullName, {
+            httpOnly: false,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             path: "/",
