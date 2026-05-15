@@ -10,9 +10,11 @@ import { Eye, EyeOff } from "@/components/eye/eye";
 import { registerAPI, loginAPI } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/authContextProvider";
 
 export default function Auth() {
   const router = useRouter();
+  const { login } = useAuth();
   const [mode, setMode] = useState("login");
   const [showPass, setShowPass] = useState(false);
 
@@ -41,9 +43,9 @@ export default function Auth() {
     } else {
       const res = await loginAPI(data);
       if (res?.success) {
+        login(res.user, res.token);
         toast.success(res.message);
         reset();
-        router.push("Dashboard/chat");
       } else {
         toast.error(res?.message);
       }

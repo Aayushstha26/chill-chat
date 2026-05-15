@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
         const token = await generateJwt({ id: user.id, email: user.email, phone: user.phone });
 
-        const res = NextResponse.json({ success: true, message: "User logged in successfully", user }, { status: 200 });
+        const res = NextResponse.json({ success: true, message: "User logged in successfully", user, token }, { status: 200 });
         res.cookies.set("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
