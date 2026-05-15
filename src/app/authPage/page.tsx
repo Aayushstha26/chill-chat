@@ -10,11 +10,11 @@ import { Eye, EyeOff } from "@/components/eye/eye";
 import { registerAPI, loginAPI } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/authContextProvider";
+import { useSession, signIn } from "next-auth/react";
 
 export default function Auth() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { data: session } = useSession();
   const [mode, setMode] = useState("login");
   const [showPass, setShowPass] = useState(false);
 
@@ -30,24 +30,29 @@ export default function Auth() {
 
   const switchMode = (m: string) => { setMode(m); reset(); };
   const onSubmit = async (data: any) => {
-    if (mode === 'signup') {
-      console.log(data);
-      const res = await registerAPI(data);
+    if (mode === "signup") {
+      const res = await registerAPI(data);  // ✅ register stays — NextAuth doesn't handle this
       if (res?.success) {
         toast.success(res.message);
         reset();
-        switchMode('login');
+        switchMode("login");
       } else {
         toast.error(res?.message);
       }
+
     } else {
-      const res = await loginAPI(data);
-      if (res?.success) {
-        login(res.user, res.token);
-        toast.success(res.message);
-        reset();
+      // ✅ Only signIn — no loginAPI
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (result?.ok) {
+        toast.success("Welcome back!");
+        router.push("/dashboard/chat");  // ✅ redirect here
       } else {
-        toast.error(res?.message);
+        toast.error("Invalid email or password");
       }
     }
   };
