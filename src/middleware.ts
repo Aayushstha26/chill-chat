@@ -1,40 +1,25 @@
-import { verifyJwt } from "./lib/jwt";
-import { NextRequest, NextResponse } from "next/server";
-export async function middleware(req: NextRequest) {
-    const token = req.cookies.get("token")?.value || req.headers.get("Authorization")?.replace("Bearer ", "");
-    const isAuthPage = req.nextUrl.pathname === "/authPage";
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { getToken } from "next-auth/jwt"
 
-    if (!token) {
-        if (!isAuthPage) {
-            console.log("No token found. Please login first")
-            return NextResponse.redirect(new URL("/authPage", req.url));
-        }
-        return NextResponse.next();
-    }
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request })
+  const url = request.nextUrl
 
-    if (isAuthPage && token) {
-        return NextResponse.redirect(new URL("/Dashboard/chat", req.url));
-    }
+  // logged in user trying to visit auth pages
+  if (
+    token &&
+    (url.pathname.startsWith("/authPage"))
+  ) {
+    return NextResponse.redirect(new URL("/Dashboard/chat", request.url))
+  }
 
-    try {
-
-        const isVerified: any = await verifyJwt(token);
-
-        if (!isVerified || !isVerified.id) {
-            console.log("Unauthorized access")
-            return NextResponse.json({ message: "Unauthorized access", success: false }, { status: 401 });
-        }
-
-        const response = NextResponse.next();
-        console.log("user id:", isVerified)
-        response.headers.set("x-user-id", isVerified.id.toString());
-        response.headers.set("x-user-name", isVerified.fullName);
-        return response;
-    } catch (error) {
-        console.error("Middleware error:", error);
-        return NextResponse.redirect(new URL("/authPage", req.url));
-    }
+  // not logged in user trying to visit protected pages
+  if (!token && url.pathname.startsWith("Dashboard/chat")) {
+    return NextResponse.redirect(new URL("/authPage", request.url))
+  }
 }
+
 export const config = {
-    matcher: ['/Dashboard/:path*', '/authPage']
+  matcher: ["/authPage", "/Dashboard/chat/:path*"],
 }
