@@ -5,6 +5,7 @@ import { Search, SquarePen, Settings, LogOut } from "lucide-react";
 import { Conversation } from "@/types/chat";
 import ConversationItem from "./ConversationItem";
 import Cookies from "js-cookie";
+import {signOut} from "next-auth/react"
 
 interface SidebarProps {
   conversations: Conversation[];
@@ -13,6 +14,9 @@ interface SidebarProps {
 }
 
 export default function Sidebar({
+
+
+
   conversations,
   activeConversationId,
   onSelectConversation,
@@ -113,8 +117,8 @@ export default function Sidebar({
           <button className="p-1.5 rounded-lg border border-transparent text-zinc-600 hover:text-zinc-300 hover:bg-white/[0.05] transition-all duration-150">
             <Settings size={14} strokeWidth={1.8} />
           </button>
-          <button className="p-1.5 rounded-lg border border-transparent text-zinc-600 hover:text-red-400 hover:bg-white/[0.05] transition-all duration-150">
-            <LogOut size={14} strokeWidth={1.8} />
+          <button onClick={() => signOut({callbackUrl: "/authPage", redirect: true})} className="p-1.5 rounded-lg border border-transparent text-zinc-600 hover:text-red-400 hover:bg-white/[0.05] transition-all duration-150">
+            <LogOut  size={14} strokeWidth={1.8} />
           </button>
         </div>
       </div>

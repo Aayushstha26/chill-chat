@@ -50,7 +50,7 @@ export default function Auth() {
 
       if (result?.ok) {
         toast.success("Welcome back!");
-        router.push("/dashboard/chat");  // ✅ redirect here
+        router.push("/Dashboard/chat");  // ✅ redirect here
       } else {
         toast.error("Invalid email or password");
       }
@@ -344,7 +344,7 @@ export default function Auth() {
               <div className="flex-1 h-px bg-[#1e1e1e]" />
             </div>
 
-            <button type="button"
+            <button onClick={()=> signIn("google")} type="button"
               className="w-full py-[10px] bg-[#141414] border border-[#222] hover:border-[#555] rounded-xl text-[14px] text-[#888] hover:text-[#ddd] flex items-center justify-center gap-2 transition-all cursor-pointer">
               <GoogleIcon />Continue with Google
             </button>
