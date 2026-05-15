@@ -44,3 +44,5 @@ next-env.d.ts
 src/generated/prisma
 
 /generated/prisma
+/src/context/authContext.tsx
+/src/context/authContextProvider.tsx
