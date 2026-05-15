@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { AuthContext } from "./authContext";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
