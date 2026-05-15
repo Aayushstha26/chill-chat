@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import DiscordProvider from "next-auth/providers/discord"
 import bcrypt from "bcryptjs"
 import { NextAuthOptions } from "next-auth"
 
@@ -47,6 +48,12 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
+    DiscordProvider({
+        id: "discord",
+        name: "Discord",
+      clientId: process.env.DISCORD_CLIENT_ID!,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+    }),
   ],
 
   callbacks: {
@@ -85,12 +92,42 @@ export const authOptions: NextAuthOptions = {
           return false
         }
       }
+      if (account?.provider === "discord") {
+        try {
+          let dbUser = await prisma.user.findUnique({
+            where: { email: user.email! },
+          })
+
+          if (!dbUser) {
+            dbUser = await prisma.user.create({
+              data: {
+                email: user.email!,
+                fullName: profile?.name ?? user.name ?? "",
+                phone: "",
+                password: "", // empty for OAuth users
+              },
+            })
+          }
+
+          // attach DB fields to user object so jwt callback can use them
+          user.id = dbUser.id.toString()
+          user.fullName = dbUser.fullName
+          user.phone = dbUser.phone
+          user.createdAt = dbUser.createdAt
+          user.updatedAt = dbUser.updatedAt
+
+          return true
+        } catch (error) {
+          console.error("Discord signIn error:", error)
+          return false
+        }
+      }
 
       return false
     },
 
     async jwt({ token, user }) {
-      // runs once on login — user is only available then
+    
       if (user) {
         token.id = user.id
         token.fullName = user.fullName

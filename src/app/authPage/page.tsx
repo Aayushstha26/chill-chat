@@ -11,6 +11,7 @@ import { registerAPI, loginAPI } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
+import DiscordIcon from "@/components/discordIcon";
 
 export default function Auth() {
   const router = useRouter();
@@ -347,6 +348,10 @@ export default function Auth() {
             <button onClick={()=> signIn("google")} type="button"
               className="w-full py-[10px] bg-[#141414] border border-[#222] hover:border-[#555] rounded-xl text-[14px] text-[#888] hover:text-[#ddd] flex items-center justify-center gap-2 transition-all cursor-pointer">
               <GoogleIcon />Continue with Google
+            </button>
+            <button onClick={()=> signIn("discord" ,{callbackUrl: "/Dashboard/chat"})} type="button"
+              className="w-full py-[10px] bg-[#141414] border border-[#222] hover:border-[#555] rounded-xl text-[14px] text-[#888] hover:text-[#ddd] flex items-center justify-center gap-2 transition-all cursor-pointer">
+              <DiscordIcon />Continue with Discord
             </button>
           </form>
 
