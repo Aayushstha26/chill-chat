@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Search, SquarePen, Settings, LogOut } from "lucide-react";
 import { Conversation } from "@/types/chat";
 import ConversationItem from "./ConversationItem";
-import Cookies from "js-cookie";
 import {signOut} from "next-auth/react"
+import { useSession } from "next-auth/react";
 
 interface SidebarProps {
   conversations: Conversation[];
@@ -14,16 +14,13 @@ interface SidebarProps {
 }
 
 export default function Sidebar({
-
-
-
   conversations,
   activeConversationId,
   onSelectConversation,
 }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const name = Cookies.get("name")?.toString();
-  console.log(name);
+  const {data: session} = useSession();
+  const name = session?.user?.fullName;
   const filtered = conversations.filter((c) =>
     c.participant.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
